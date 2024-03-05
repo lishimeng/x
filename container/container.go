@@ -1,4 +1,4 @@
-package factory
+package container
 
 import (
 	"errors"
@@ -76,7 +76,9 @@ func Get[T any](ptrType *T, name ...string) (err error) {
 
 // Add 保存
 //
-// @Code var some
+// struct/interface: Add(&val)
+//
+// @param o var some
 // Add(&some)
 func Add[T any](o *T, name ...string) {
 
