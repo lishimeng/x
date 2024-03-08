@@ -100,13 +100,11 @@ return payload + s + "A"
 		for index, p := range params {
 			var v string
 			p.Value(&v)
-			println(index, p.Name, p.Type, v)
+			println(index, p.Type, v)
 		}
 		return "5"
 	}
-	vm.InjectFunc("crc", cb,
-		ParamStruct{Type: String, Name: "name"},
-		ParamStruct{Type: String, Name: "payload"})
+	vm.InjectFunc("crc", cb, String, String)
 	res, err := vm.Invoke("decode", "", "")
 
 	if err != nil {

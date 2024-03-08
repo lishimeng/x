@@ -22,13 +22,13 @@ func (engine *jsEngine) Inject(name string, callback func(call otto.FunctionCall
 	_ = engine.vm.Set(name, callback)
 }
 
-func (engine *jsEngine) InjectFunc(name string, callback Callback, params ...ParamStruct) {
+func (engine *jsEngine) InjectFunc(name string, callback Callback, paramType ...ParamType) {
 
 	var cbFunc = func(cb otto.FunctionCall) otto.Value {
 		f := Function{
 			call: cb,
 		}
-		f.build(params...)
+		f.build(paramType...)
 		res := callback(name, f.paramsMap...)
 		v, err := otto.ToValue(res)
 		if err != nil {

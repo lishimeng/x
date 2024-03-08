@@ -11,7 +11,7 @@ import (
 type JsEngine interface {
 	Invoke(method string, params ...interface{}) (otto.Value, error)
 	Inject(name string, callback func(call otto.FunctionCall) otto.Value)
-	InjectFunc(name string, callback Callback, ps ...ParamStruct)
+	InjectFunc(name string, callback Callback, paramType ...ParamType)
 	SetValue(name string, value interface{}) error
 }
 

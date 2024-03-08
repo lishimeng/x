@@ -16,10 +16,7 @@ const (
 
 type ParamStruct struct {
 	Type  ParamType
-	index int
-	Name  string
 	value otto.Value
-	has   bool
 }
 
 func (p *ParamStruct) Value(ptr any) {
@@ -30,6 +27,9 @@ func (p *ParamStruct) Value(ptr any) {
 	tr := reflect.ValueOf(ptr)
 
 	if tr.Kind() != reflect.Pointer || tr.IsNil() {
+		return
+	}
+	if p.value.IsUndefined() {
 		return
 	}
 
@@ -92,17 +92,14 @@ type Function struct {
 	paramsMap []ParamStruct
 }
 
-func (f *Function) build(pp ...ParamStruct) {
-	for i, v := range pp {
-		v.index = i
-		f.paramsMap = append(f.paramsMap, v)
-	}
-	list := f.call.ArgumentList
-	for index, arg := range list {
-		if len(f.paramsMap) <= index {
-			continue
+func (f *Function) build(paramTypes ...ParamType) {
+	for i, paramType := range paramTypes {
+		var p = ParamStruct{
+			Type: paramType,
 		}
-		f.paramsMap[index].value = arg
+		var value = f.call.Argument(i)
+		p.value = value
+		f.paramsMap = append(f.paramsMap, p)
 	}
 }
 
