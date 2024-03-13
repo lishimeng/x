@@ -2,6 +2,7 @@ package container
 
 import (
 	"errors"
+	"fmt"
 	"reflect"
 	"sync"
 )
@@ -111,5 +112,5 @@ func Add[T any](o *T, name ...string) {
 
 func getTypeName[T any](ptr *T) (name string) {
 	t := reflect.TypeOf(ptr)
-	return t.Elem().Name()
+	return fmt.Sprintf("%s#%s", t.Elem().PkgPath(), t.Elem().Name())
 }
