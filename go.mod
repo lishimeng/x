@@ -1,6 +1,6 @@
 module github.com/lishimeng/x
 
-go 1.23.1
+go 1.23
 
 require (
 	github.com/ZZMarquis/gm v1.3.2
