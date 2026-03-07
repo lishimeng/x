@@ -1,6 +1,6 @@
 module github.com/lishimeng/x
 
-go 1.23
+go 1.24.0
 
 require (
 	github.com/ZZMarquis/gm v1.3.2
@@ -10,7 +10,7 @@ require (
 	github.com/jeremywohl/flatten v1.0.1
 	github.com/robertkrimen/otto v0.4.0
 	github.com/spf13/viper v1.19.0
-	golang.org/x/crypto v0.27.0
+	golang.org/x/crypto v0.48.0
 )
 
 require (
@@ -29,9 +29,9 @@ require (
 	go.uber.org/atomic v1.9.0 // indirect
 	go.uber.org/multierr v1.9.0 // indirect
 	golang.org/x/exp v0.0.0-20230905200255-921286631fa9 // indirect
-	golang.org/x/net v0.27.0 // indirect
-	golang.org/x/sys v0.25.0 // indirect
-	golang.org/x/text v0.18.0 // indirect
+	golang.org/x/net v0.49.0 // indirect
+	golang.org/x/sys v0.41.0 // indirect
+	golang.org/x/text v0.34.0 // indirect
 	gopkg.in/ini.v1 v1.67.0 // indirect
 	gopkg.in/sourcemap.v1 v1.0.5 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
