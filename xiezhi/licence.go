@@ -65,6 +65,37 @@ func (l *Licence) Sign(h Handler) (err error) {
 	return
 }
 
+func Sign[T Payload](payload T, h Handler) (content string, err error) {
+	var lic Licence
+	err = lic.SignWithObject(h, payload)
+	if err != nil {
+		return
+	}
+	content = lic.Marshall()
+	return
+}
+
+func Verify[T Payload](content string, payload T, h Handler) (err error) {
+	var lic Licence
+	err = lic.Unmarshall(content)
+	if err != nil {
+		return
+	}
+	err = lic.Verify(h)
+	if err != nil {
+		return
+	}
+	err = json.Unmarshal(lic.Payload, &payload)
+	if err != nil {
+		return
+	}
+	err = payload.Verify()
+	if err != nil {
+		return
+	}
+	return
+}
+
 // SignWithObject 可序列化的payload
 func (l *Licence) SignWithObject(h Handler, payload any) (err error) {
 	bs, err := json.Marshal(payload)

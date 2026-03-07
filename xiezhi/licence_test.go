@@ -39,10 +39,14 @@ func TestLicence_Marshall(t *testing.T) {
 }
 
 func TestSighWithObject(t *testing.T) {
-	var payload = make(map[string]any)
-	payload["test"] = "test"
-	payload["test2"] = "test2"
-	payload["test3"] = "test3"
+	type SamplePayload struct {
+		Payload
+		A int64
+		B string
+		C float64
+	}
+
+	var payload SamplePayload
 
 	h, err := NewRsa([]byte(testPem), []byte(testKey))
 	if err != nil {
@@ -58,4 +62,62 @@ func TestSighWithObject(t *testing.T) {
 	s := lic.Marshall()
 	t.Logf("signature: %s", s)
 	t.Log("marshall done")
+}
+
+type SamplePayload struct {
+	A int64
+	B string
+	C float64
+}
+
+func (payload *SamplePayload) Expired() error {
+	return nil
+}
+
+func (payload *SamplePayload) SerialNumberCk() error {
+	return nil
+}
+
+func (payload *SamplePayload) Verify() error {
+
+	var err error
+	err = payload.Expired()
+	if err != nil {
+		return err
+	}
+	err = payload.SerialNumberCk()
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func TestSign(t *testing.T) {
+
+	var payload = &SamplePayload{
+		A: 1234,
+		B: "hello world",
+		C: 1.234,
+	}
+
+	h, err := NewRsa([]byte(testPem), []byte(testKey))
+	if err != nil {
+		t.Fatal("NewRsa:", err)
+		return
+	}
+
+	content, err := Sign(payload, h)
+	if err != nil {
+		t.Fatal("Sign:", err)
+		return
+	}
+	t.Log("sign done")
+
+	var payload2 SamplePayload
+	err = Verify(content, &payload2, h)
+	if err != nil {
+		t.Fatal("Verify:", err)
+		return
+	}
+	t.Log("verify done")
 }
