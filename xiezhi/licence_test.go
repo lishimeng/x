@@ -6,7 +6,7 @@ func TestLicence_Marshall(t *testing.T) {
 
 	signHandler, err := NewRsa([]byte(testPem), []byte(testKey))
 	var lic Licence
-	lic.Signature = []byte{0x01, 0x02, 0x04}
+	lic.Payload = []byte{0x01, 0x02, 0x04}
 	sig, err := signHandler.Sign(lic.Payload)
 	if err != nil {
 		t.Fatal("signHandler.Sign:", err)
