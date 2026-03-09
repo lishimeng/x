@@ -21,9 +21,13 @@ func loadRsaPub(data []byte) (*rsa.PublicKey, error) {
 	return pub.(*rsa.PublicKey), nil
 }
 
+func isPKCS8Header(h string) bool { // 兼容pkcs8与pkcs1的header(pkcs1只限RSA)
+	return h == "PRIVATE KEY" || h == "RSA PRIVATE KEY"
+}
+
 func loadRsaPri(data []byte) (*rsa.PrivateKey, error) {
 	block, _ := pem.Decode(data)
-	if block == nil || block.Type != "RSA PRIVATE KEY" {
+	if block == nil || !isPKCS8Header(block.Type) {
 		return nil, fmt.Errorf("failed to decode PEM block")
 	}
 	key, err := x509.ParsePKCS8PrivateKey(block.Bytes)
