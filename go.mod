@@ -4,6 +4,7 @@ go 1.24.0
 
 require (
 	github.com/ZZMarquis/gm v1.3.2
+	github.com/denisbrodbeck/machineid v1.0.1
 	github.com/fatih/structs v1.1.0
 	github.com/go-resty/resty/v2 v2.15.1
 	github.com/google/uuid v1.6.0
