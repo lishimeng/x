@@ -9,12 +9,14 @@ require (
 	github.com/go-resty/resty/v2 v2.15.1
 	github.com/google/uuid v1.6.0
 	github.com/jeremywohl/flatten v1.0.1
+	github.com/pquerna/otp v1.5.0
 	github.com/robertkrimen/otto v0.4.0
 	github.com/spf13/viper v1.19.0
 	golang.org/x/crypto v0.48.0
 )
 
 require (
+	github.com/boombuler/barcode v1.0.1-0.20190219062509-6c824513bacc // indirect
 	github.com/fsnotify/fsnotify v1.7.0 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
 	github.com/magiconair/properties v1.8.7 // indirect
